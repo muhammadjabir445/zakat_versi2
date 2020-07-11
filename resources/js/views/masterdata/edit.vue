@@ -2,7 +2,7 @@
     <v-app>
 
         <v-container>
-            <v-btn small color="red accent-4" class="white--text" tile>Edit Master Data</v-btn>
+            <v-btn small color="teal darken-2" class="white--text" tile>Edit Master Data</v-btn>
             <v-card
             class="border-edit"
             tile

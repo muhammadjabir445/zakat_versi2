@@ -7,6 +7,10 @@ import UserRouter from './routes/users'
 import MasterDataRouter from './routes/Masterdata'
 import MenuRouter from './routes/Menu'
 import RoleManagementRouter from './routes/RoleManagement'
+import PenyalurRouter from './routes/Penyalur'
+import DanaZakat from './routes/Dana_zakat'
+import PembayaranZakat from './routes/Pembayaran_zakat'
+import MustahikRouter from './routes/Mustahik'
 
 // import Vuetify from 'vuetify'
 // Vue.use(Vuetify)
@@ -21,9 +25,60 @@ const router = new Router({
         component:()=>import('./views/index.vue'),
         children:[
             {
+                path: '',
+                name: 'landing',
+                component:()=>import('./views/landing.vue'),
+            },
+            {
                 path: '/dahsboard',
                 name: 'dashboard',
-                component:()=>import('./views/index.vue'),
+                component:()=>import('./views/dashboard.vue'),
+                meta:{auth:true},
+                beforeEnter: (to, from, next) => {
+                    let user = store.getters['auth/user']
+                    if (user.id_role == 36) {
+                        next('/dana-zakat')
+                    } else {
+                        next()
+                    }
+                }
+
+            },
+            {
+                path: '/setting-aplikasi',
+                name: 'setting.aplikasi',
+                component:()=>import('./views/setting-aplikasi/index.vue'),
+                meta:{auth:true},
+            },
+            {
+                path: '/kalkulator-zakat',
+                name: 'kalkulator',
+                component:()=>import('./views/kalkulator.vue'),
+
+            },
+            {
+                path: '/bayar-zakat',
+                name: 'bayar.zakat',
+                component:()=>import('./views/bayar.vue'),
+
+            },
+            {
+                path: '/cek-pembayaran',
+                name: 'cek.pembayaran',
+                component:()=>import('./views/cek_pembayaran.vue'),
+
+            },
+            {
+                path: '/laporan-pembagian',
+                name: 'dashboard',
+                component:()=>import('./views/laporan-pembagian/index.vue'),
+                meta:{auth:true}
+
+            },
+            {
+                path: '/laporan-pembayaran',
+                name: 'dashboard',
+                component:()=>import('./views/laporan-pembayaran/index.vue'),
                 meta:{auth:true}
 
             },
@@ -32,10 +87,14 @@ const router = new Router({
             MasterDataRouter,
             MenuRouter,
             RoleManagementRouter,
-
+            PenyalurRouter,
+            DanaZakat,
+            PembayaranZakat,
+            MustahikRouter
         ]
 
     },
+
 
     {
         path: '/login',

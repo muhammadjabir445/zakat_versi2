@@ -1,6 +1,6 @@
 <template>
     <div>
-    <v-app v-if="$route.name != 'login'">
+    <v-app v-if="user">
         <Snakbar/>
         <div v-if="user">
             <Header  />
@@ -23,6 +23,19 @@
             </v-slide-y-transition>
         </v-container>
     </v-app>
+
+    <v-app v-else>
+        <Snakbar/>
+        <HeaderLanding  />
+        <v-content class="">
+             <v-container fluid grid-list-md text-xs-center style="" >
+                <v-slide-y-transition mode="out-in">
+                <router-view></router-view>
+                </v-slide-y-transition>
+            </v-container>
+        </v-content>
+
+    </v-app>
     </div>
 
     <!-- <v-app v-else-if="$route.name == 'notfound'">
@@ -40,6 +53,8 @@
  import Sidebar from './components/layouts/Sidebar'
  import {mapGetters,mapActions} from 'vuex'
  import Login from './views/Login.vue'
+ import Landing from './views/landing.vue'
+ import HeaderLanding from './components/layouts/HeaderLanding'
 //  import NotFound from './views/NotFound.vue'
 
 export default {
@@ -50,6 +65,8 @@ export default {
          Snakbar,
          Sidebar,
          Login,
+         Landing,
+         HeaderLanding
         //  NotFound
     },
      computed:{

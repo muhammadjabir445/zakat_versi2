@@ -1,9 +1,9 @@
 <template>
 	<nav>
-		<v-app-bar app color="red accent-4" class="white--text" v-if="user" >
+		<v-app-bar app color="teal darken-2" class="white--text" v-if="user" >
 		    <v-app-bar-nav-icon color="white"
 		    @click="sideBar()"></v-app-bar-nav-icon>
-		    <v-toolbar-title>Mode Developer</v-toolbar-title>
+		    <v-toolbar-title>Pengelolaan Zakat BMT At-Taqwa</v-toolbar-title>
 		    <v-spacer></v-spacer>
 
 		      <v-btn class="white--text" text @click="logOut"  >Logout</v-btn>

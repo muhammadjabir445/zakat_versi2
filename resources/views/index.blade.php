@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="{{asset('mini-logo.PNG')}}">
-    <title>Mode Developer</title>
+    <title>BMT At-Taqwa</title>
     <link href="{{asset('fontawesome/css/all.css')}}"
     rel="stylesheet">
      <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
@@ -17,7 +17,7 @@
  <style>
 
     .border-edit{
-    border-top: 2px solid #D50000 !important;
+    border-top: 2px solid #00796b !important;
     }
     .v-application--is-ltr .v-list-item__action:first-child, .v-application--is-ltr .v-list-item__icon:first-child{
         margin-right: 15px !important;
@@ -26,7 +26,7 @@
         padding-left: 55px !important;
     }
     .title-color{
-        background-color: #D50000 !important;
+        background-color: #00796b !important;
         color: white !important;
     }
 

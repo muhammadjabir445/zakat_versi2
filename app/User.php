@@ -64,4 +64,8 @@ class User extends Authenticatable implements JWTSubject
     public function role(){
         return $this->belongsTo('App\Models\MasterDataDetail','id_role');
     }
+
+    public function penyalur(){
+        return $this->hasOne('App\Models\Penyalur','id_user');
+    }
 }
