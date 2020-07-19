@@ -22,6 +22,7 @@ class CreateTablePembayaranZakat extends Migration
             $table->integer('id_jenis');
             $table->integer('total_pembayaran')->nullable();
             $table->integer('total_beras')->nullable();
+            $table->integer('id_approval')->nullable()->index();
             $table->softDeletes();
             $table->timestamps();
         });

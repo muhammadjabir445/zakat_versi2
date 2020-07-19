@@ -65,9 +65,9 @@
                                 </td>
                                 <td class="text-left">
                                     <v-btn x-small color="success" dark v-if="item.status == 0" @click="openDialog(item.id)">Konfirmasi</v-btn>
-                                    <v-btn color="success" v-on:click="edit(item.id)" fab x-small dark v-if="!item.foto">
+                                    <!-- <v-btn color="success" v-on:click="edit(item.id)" fab x-small dark v-if="!item.foto">
                                         <v-icon>mdi-circle-edit-outline</v-icon>
-                                    </v-btn>
+                                    </v-btn> -->
                                     <v-btn color="error" fab x-small @click="dialogDelete(item.id)"  v-if="item.status == 0">
                                         <v-icon>mdi-delete-outline</v-icon>
                                     </v-btn>

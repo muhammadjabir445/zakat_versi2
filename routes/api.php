@@ -36,5 +36,6 @@ Route::resource('menu', 'Menu\MenuController');
 Route::resource('users', 'Users\UsersController');
 Route::resource('penyalur-zakat', 'Penyalur\PenyalurController');
 Route::resource('mustahik', 'Mustahik\MustahikController');
+Route::resource('dana-zakat', 'DanaZakat\DanaZakatController');
 });
 Route::resource('pembayaran-zakat', 'BayarZakatController');

@@ -98,8 +98,8 @@
                     ></v-text-field>
 
 
-                    <v-text-field v-if="jenis_zakat == 38"
-                        label="Jumlah Orang"
+                    <v-text-field v-if="jenis_zakat == 38 || jenis_zakat == 44"
+                        :label="jenis_zakat == 38 ? 'jumlah orang' : (jenis_zakat == 44 ? 'Beras yang dikeluarkan' : '')"
 
                         v-model="jumlah_orang"
                         :rules="orangRules"
@@ -107,14 +107,14 @@
                         color="teal darken-2"
                     ></v-text-field>
 
-                    <v-text-field v-if="jenis_zakat == 44"
+                    <!-- <v-text-field v-if=""
                         label="Beras yang dikeluarkan"
                         placeholder="Jumlah beras yang dikeluarkan"
                         v-model="jumlah_orang"
                         :rules="orangRules"
                         outlined
                         color="teal darken-2"
-                    ></v-text-field>
+                    ></v-text-field> -->
 
                     <v-text-field
                         label="Jumlah Transfer"
@@ -198,7 +198,7 @@ export default {
         ],
         orangRules: [
             v => !!v || 'Tidak Boleh Kosong',
-            v => v > 0 || 'Minimal 1',
+            v => v > 0 || 'Format salah',
             v => /^\d+$/.test(v) || 'Harus angka'
         ],
         namaRules: [
@@ -232,6 +232,9 @@ export default {
               set(newValue) {
                   this.orang = newValue
                   this.jumlah_transfer = this.harga_beras * this.orang
+                  if (this.jenis_zakat == 38) {
+                      this.jumlah_transfer = this.jumlah_transfer * 3
+                  }
                   console.log(this.jumlah_transfer)
                   console.log(this.orang)
                   console.log(this.harga_beras)

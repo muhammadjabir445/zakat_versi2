@@ -25,6 +25,7 @@ class BayarZakatController extends Controller
             ->orWhereHas('jenis',function($q) use ($request){
                 $q->where('description','LIKE',"%{$request->keyword}%");
             })
+            ->orderBy('created_at','desc')
             ->paginate(15);
         }else{
             $data = Pembayaran::with('jenis')
@@ -66,6 +67,9 @@ class BayarZakatController extends Controller
         if ($request->file('foto')) {
             $file = $request->file('foto')->store('foto_pembayaran','public');
             $data->bukti_pembayaran = $file;
+        } else {
+            $data->id_approval = \Auth::user()->id;
+            $data->status = 1;
         }
         $data->save();
         return response()->json([
@@ -111,6 +115,7 @@ class BayarZakatController extends Controller
         $data = Pembayaran::findOrFail($id);
         if ($request->status) {
             $data->status = $request->status;
+            $data->id_approval = \Auth::user()->id;
         } else {
             $data->nama = $request->nama;
             $data->email = $request->email;
