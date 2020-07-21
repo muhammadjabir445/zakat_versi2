@@ -61,6 +61,6 @@ export default {
     mixins:[middleware],
 
     created(){
-        this.getRole()
+
     }
 }

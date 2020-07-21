@@ -173,7 +173,7 @@ export default {
             data.append('nama_yayasan',this.nama_yayasan)
             data.append('beras',this.beras)
             data.append('uang',this.uang)
-            data.append('deskipsi',this.deskipsi)
+            data.append('deskripsi',this.deskripsi)
 
             await this.axios.post(url,data,this.config)
             .then((ress) => {
@@ -200,6 +200,9 @@ export default {
 
         },
 
+    },
+    created () {
+         this.getRole()
     }
 
 }

@@ -6,6 +6,7 @@ export default {
     data(){
         return {
             data : [],
+            datadua:[],
             page: null,
             lengthpage: null,
             loading:true,
@@ -40,6 +41,7 @@ export default {
             .then((ress)=>{
                 console.log(ress)
                 this.data = ress.data.pembagian_zakat.data
+                this.datadua = ress.data.pembelian_beras.data
 
                 this.page =   ress.data.pembagian_zakat.current_page
                 this.lengthpage = ress.pembagian_zakat.last_page

@@ -2,7 +2,7 @@
     <v-app>
         <Progress v-if="loading"/>
         <v-container v-if="!loading">
-            <v-btn small color="teal darken-2" class="white--text" tile>Data Dana Zakat</v-btn>
+                <v-btn small color="teal darken-2" class="white--text" tile>Data Dana Zakat</v-btn>
             <v-card
             class="border-edit"
             tile
@@ -50,8 +50,8 @@
                             <tr v-for="item in data" :key="item.id">
                                 <td class="text-left">{{item.penyalur.nama}}</td>
                                 <td class="text-left">{{item.penyalur.alamat}}</td>
-                                <td class="text-left">{{item.total_uang}}</td>
-                                <td class="text-left">{{item.total_beras}}</td>
+                                <td class="text-left">Rp {{item.total_uang}}</td>
+                                <td class="text-left">{{item.total_beras}} Kg</td>
                                 <td class="text-left">{{item.deskripsi}}</td>
                                 <td class="text-left">
                                     <v-btn x-small color="secondary" dark v-if="item.status == 0">Belum diapproval</v-btn>
@@ -93,6 +93,92 @@
 
                 </v-card-actions>
             </v-card>
+
+            <br>
+            <v-card
+            class="border-edit"
+            tile
+            v-if="user.id_role != 36"
+            >
+            <v-btn small color="teal darken-2" class="white--text" tile>Data Pembelian Beras</v-btn>
+
+                <v-card-text class="text-center">
+                    <v-container>
+                        <v-row justify="center" align="center">
+                            <v-col
+                                cols="6"
+                            >
+                            <v-text-field
+                                v-model="keyworddua"
+                                label="Pencarian"
+                                v-on:keyup = "go"
+                                color="teal darken-2"
+                            ></v-text-field>
+                            </v-col>
+
+                            <v-col
+                                cols="6"
+                                align="right"
+                            >
+                                <v-btn color="primary"  :to="urlcreate" small tile>
+                                    Tambah Data
+                                </v-btn>
+                            </v-col>
+                        </v-row>
+                    </v-container>
+
+                    <v-simple-table>
+                        <template v-slot:default>
+                        <thead>
+                            <tr>
+                            <th class="text-left">Uang yang diajukan</th>
+                            <th class="text-left">Beras yang dibeli</th>
+                            <th class="text-left">Deskripsi</th>
+                            <th class="text-left">Status</th>
+                            <th class="text-left">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="item in datadua" :key="item.id">
+                                <td class="text-left">Rp {{item.total_uang}}</td>
+                                <td class="text-left">{{item.total_beras}} Kg</td>
+                                <td class="text-left">{{item.deskripsi}}</td>
+                                <td class="text-left">
+                                    <v-btn x-small color="secondary" dark v-if="item.status == 0">Belum diapproval</v-btn>
+                                    <v-btn x-small color="success" dark v-if="item.status == 1">Sudah diapproval</v-btn>
+                                    <v-btn x-small color="success" dark v-if="item.status == 4">Dana telah cair</v-btn>
+                                    <v-btn x-small color="red" dark v-if="item.status == 5">Ditolak</v-btn>
+                                </td>
+                                <td class="text-left">
+                                    <v-btn x-small color="success" dark v-if="item.status == 0 && (user.id_role == 34 || user.id_role == 23)" @click="openDialog(item.id,0)">Konfirmasi</v-btn>
+                                    <v-btn x-small color="success" dark v-if="item.status == 1 && (user.id_role == 37 || user.id_role == 23)" @click="openDialog(item.id,4)">Cairkan</v-btn>
+                                    <v-btn color="success" v-on:click="edit(item.id)" fab x-small dark v-if="item.status == 0  && (user.id_role == 35 || user.id_role == 23)">
+                                        <v-icon>mdi-circle-edit-outline</v-icon>
+                                    </v-btn>
+                                    <v-btn color="error" fab x-small @click="dialogDelete(item.id)"  v-if="(item.status == 0 || item.status == 5) && (user.id_role == 35 || user.id_role == 23)">
+                                        <v-icon>mdi-delete-outline</v-icon>
+                                    </v-btn>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                        </template>
+                    </v-simple-table>
+                </v-card-text>
+                <div class="text-center">
+                    <v-pagination
+                    v-model="page"
+                    :length="lengthpage"
+                    :total-visible="7"
+                    @input="go"
+                    color="teal darken-2"
+                    ></v-pagination>
+                </div>
+                <v-card-actions class="">
+
+                </v-card-actions>
+            </v-card>
+
 
             <v-dialog
             v-model="dialog"

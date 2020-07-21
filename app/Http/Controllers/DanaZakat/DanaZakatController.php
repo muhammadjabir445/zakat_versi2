@@ -19,27 +19,56 @@ class DanaZakatController extends Controller
      */
     public function index(Request $request)
     {
+        $filter = '' ;
+        if (\Auth::user()->id_role == 36 ) {
+            $filter = Penyalur::where('id_user',\Auth::user()->id)->first();
+            $filter = $filter->id;
+        }
         if ($request) {
             $user = DanaZakat::with(['penyalur','petugas'])
-                    ->where(function($q) use($request) {
+                    ->where(function($q) use($request,$filter) {
                         $q->where('total_uang','LIKE',"%{$request->keyword}%")
                         ->where('id_penyalur','!=',null);
+                        if ($filter) {
+                            $q->where('id_penyalur',$filter)
+                            ->where(function($q) {
+                                $q->where('status',1)->orWhere('status',4);
+                            });
+                        }
                     })
-                    ->orWhere(function($q) use($request) {
+                    ->orWhere(function($q) use($request,$filter) {
                         $q->where('total_beras','LIKE',"%{$request->keyword}%")
                         ->where('id_penyalur','!=',null);
+                        if ($filter) {
+                            $q->where('id_penyalur',$filter)
+                            ->where(function($q) {
+                                $q->where('status',1)->orWhere('status',4);
+                            });
+                        }
                     })
-                    ->orWhere(function($q) use($request) {
+                    ->orWhere(function($q) use($request,$filter) {
                         $q->where('id_penyalur','!=',null)
                         ->whereHas('penyalur',function($q) use ($request){
                             $q->where('nama','LIKE',"%{$request->keyword}%");
                         });
+                        if ($filter) {
+                            $q->where('id_penyalur',$filter)
+                            ->where(function($q) {
+                                $q->where('status',1)->orWhere('status',4);
+                            });
+                        }
                     })
-                    ->orWhere(function($q) use($request) {
+                    ->orWhere(function($q) use($request,$filter) {
                         $q->where('id_penyalur','!=',null)
                         ->whereHas('petugas',function($q) use ($request){
                             $q->where('name','LIKE',"%{$request->keyword}%");
                         });
+                        if ($filter) {
+                            $q->where('id_penyalur',$filter)
+                            ->where(function($q) {
+                                $q->where('status',1)->orWhere('status',4);
+                            });
+                        }
                     })
 
                     ->orderBy('created_at','desc')
@@ -115,9 +144,9 @@ class DanaZakatController extends Controller
 
 
         $pembayaran_beras= Pembayaran::where('status',1)->where('total_pembayaran', '<',1000)->get(); //beras masuk
-        $pembelian_beras = $uang_beras_keluar->sum('total_beras'); // beli beras
+        $pembelian_beras = DanaZakat::where('status',4)->where('id_penyalur',null)->get(); // beli beras
         $beras_dibagikan = DanaZakat::where('status','!=',5)->where('id_penyalur','!=',null)->get(); // v\beras dibagikan
-        $sisa_beras = $pembayaran_beras->sum('total_pembayaran') + $pembelian_beras - $beras_dibagikan->sum('total_beras');
+        $sisa_beras = $pembayaran_beras->sum('total_pembayaran') + $pembelian_beras->sum('total_beras') - $beras_dibagikan->sum('total_beras');
 
         return [
             'total_uang_bersih' => $total_uang_bersih,
@@ -169,6 +198,15 @@ class DanaZakatController extends Controller
     {
         $data = DanaZakat::findOrFail($id);
         $uang = $this->getuang();
+        $penyalur = Penyalur::where('status',1)->get();
+        return $datas = [
+            'data'=>$data,
+            'uang_tersedia'=>$data->id_penyalur ? $uang['total_uang_bersih'] + $data->total_uang : $uang['total_uang_bersih'],
+            'uang_beras_tersedia' => $data->id_penyalur ? $uang['total_uang_beras'] : $uang['total_uang_beras']  + $data->total_uang,
+            'sisa_beras' => $data->id_penyalur ?   $uang['sisa_beras']  + $data->total_beras : $uang['sisa_beras'],
+            'penyalur' =>  $penyalur = Penyalur::where('status',1)->get()
+        ];
+
 
     }
 
