@@ -16,6 +16,8 @@ Route::get('/test',function(){
     $user->save();
 
 });
+Route::get('/laporan-pembayaran','CetakController@pembayaran');
+Route::get('/laporan-pembagian','CetakController@pembagian');
 Route::get('/{any}',function(){
     return view('index');
 })->where('any', '.*');

@@ -23,6 +23,7 @@ Route::post('/logout', 'AuthJWT\AuthController@logout');
 Route::post('/edit-profile','AuthJWT\AuthController@EditProfile');
 Route::get('/jenis-zakat','SettingController@jenis_zakat');
 Route::get('/cek-status-pembayaran','BayarZakatController@cek_pembayaran');
+Route::get('/tahun-laporan','CetakController@index');
 
 
 Route::middleware(['auth:api'])->group(function () {

@@ -35,7 +35,7 @@
                 >
                 <v-card-text class="text-center">
                     <div v-if="total != 'blm'">
-                        Zakat yang anda harus keluarkan
+                        Zakat yang anda harus dikeluarkan
                         <h1 color="success">Rp {{jenis_zakat == 44 ? total * harga_beras : total}}</h1>
                     </div>
                     <div v-else>
@@ -209,7 +209,7 @@ export default {
         kebutuhan:'',
         tabungan:'',
         hasil_panen:'',
-        perairan:'',
+        perairan:'Buatan',
         total:'',
         nisob_pertanian: 612,
         nisob_emas:'',

@@ -1,125 +1,75 @@
 <template>
     <v-app>
-        <Progress v-if="loading"/>
-        <v-container v-if="!loading">
-            <v-btn small color="teal darken-2" class="white--text" tile>Data Pembayaran Zakat</v-btn>
+        <v-container >
+            <v-btn small color="teal darken-2" class="white--text" tile>Cetak Laporan Data Pembayaran Zakat</v-btn>
             <v-card
             class="border-edit"
             tile
             >
                 <v-card-text class="text-center">
                     <v-container>
-                        <v-row justify="center" align="center">
+                    <v-select
+                        label="Periode"
+                        :items="items"
+                        v-model="tahun"
+                        item-text="text"
+                        item-value="value"
+                        outlined
+                    ></v-select>
+                    <v-row>
                             <v-col
-                                cols="6"
-                            >
-                            <v-text-field
-                                v-model="keyword"
-                                label="Pencarian"
-                                v-on:keyup = "go"
-                                color="teal darken-2"
-                            ></v-text-field>
-                            </v-col>
+                            cols="12"
+                            align="right"
 
-                            <v-col
-                                cols="6"
-                                align="right"
                             >
-                                <v-btn color="primary"  :to="urlcreate" small tile>
-                                    Cetak
+                              <v-btn
+                              block
+                              color="primary"
+                              class="white--text"
+                              @click="cetak()"
+                                >
+                                Cetak
                                 </v-btn>
                             </v-col>
-                        </v-row>
+                    </v-row>
+
                     </v-container>
-
-                    <v-simple-table>
-                        <template v-slot:default>
-                        <thead>
-                            <tr>
-                            <th class="text-left">Kode</th>
-                            <th class="text-left">Nama Muzaki</th>
-                            <th class="text-left">Total Pembayaran</th>
-                            <th class="text-left">Jenis Zakat</th>
-                            <th class="text-left">Tanggal</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- <tr v-for="item in data" :key="item.id">
-                                <td class="text-left">{{item.name}}</td>
-                                <td class="text-left">{{item.email}}</td>
-                                <td class="text-left">{{item.role.description}}</td>
-                                <td class="text-left" width="30%">
-                                <v-btn color="success" v-on:click="edit(item.id)" fab x-small dark >
-                                    <v-icon>mdi-circle-edit-outline</v-icon>
-                                </v-btn>
-                                <v-btn color="error" fab x-small @click="dialogDelete(item.id)" >
-                                    <v-icon>mdi-delete-outline</v-icon>
-                                </v-btn>
-                                </td>
-                            </tr> -->
-                            <tr>
-                                <td class="text-left">2020061</td>
-                                <td class="text-left">Muhammad Jabir</td>
-                                <td class="text-left">Rp. 30.000</td>
-                                <td class="text-left">Fitrah</td>
-                                <td class="text-left">2020-06-01</td>
-                            </tr>
-                        </tbody>
-                        </template>
-                    </v-simple-table>
                 </v-card-text>
-                <div class="text-center">
-                    <v-pagination
-                    v-model="page"
-                    :length="lengthpage"
-                    :total-visible="7"
-                    @input="go"
-                    color="teal darken-2"
-                    ></v-pagination>
-                </div>
+
                 <v-card-actions class="">
 
                 </v-card-actions>
             </v-card>
 
-            <v-dialog
-            v-model="dialog"
-            max-width="340"
-            >
-            <v-card>
-                <v-card-title class="headline">Apa anda yakin menghapus ?</v-card-title>
-
-                <v-card-actions>
-                <v-spacer></v-spacer>
-
-                <v-btn
-
-                    text
-                    @click="dialog = false"
-                >
-                    Cancel
-                </v-btn>
-
-                <v-btn
-                    color="red"
-                    text
-                    @click="deleteData()"
-                >
-                    Delete
-                </v-btn>
-                </v-card-actions>
-            </v-card>
-            </v-dialog>
         </v-container>
     </v-app>
 
 </template>
 <script>
 
-import CrudMixin from '../../mixins/CrudMixin'
 export default {
-    name: 'users',
-    mixins:[CrudMixin]
+    data: () => ({
+        items:[],
+        tahun:''
+      }),
+     async created(){
+          let url = '/tahun-laporan'
+          await this.axios.get(url)
+          .then((ress) => {
+              console.log(ress)
+
+                this.items = ress.data.tahun_pembayaran
+          })
+          .catch((err) => {
+              console.log(err.response)
+          })
+      },
+      methods:{
+          cetak(){
+              let url = 'http://' + window.location.host + '/laporan-pembayaran?tahun=' + this.tahun
+              window.open(url)
+          }
+      }
 }
 </script>
 
