@@ -73,6 +73,7 @@ class DanaZakatController extends Controller
 
                     ->orderBy('created_at','desc')
                     ->paginate(15);
+
             $data = DanaZakat::with(['penyalur','petugas'])
             ->where(function($q) use($request) {
                 $q->where('total_uang','LIKE',"%{$request->keyworddua}%")
@@ -221,8 +222,15 @@ class DanaZakatController extends Controller
     {
         $data = DanaZakat::findOrFail($id);
         if ($request->status) {
-            $data->status = $request->status;
-            $message = 'Berhasil mengubah status';
+            if ($request->status == 7) {
+                $file = $request->file('foto')->store('foto_bukti','public');
+                $message = 'Berhasil upload bukti';
+                $data->file_bukti = $file;
+            } else {
+                $data->status = $request->status;
+                $message = 'Berhasil mengubah status';
+            }
+
         }
         $data->save();
         return response()->json([

@@ -29,6 +29,10 @@ export default {
             setSnakbar:'snakbar/setSnakbar'
         }),
 
+        dokumentUrl(url){
+            window.open(url);
+        },
+
         // method ambil data
         async go(){
             let url = this.url

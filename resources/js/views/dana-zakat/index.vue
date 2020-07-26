@@ -44,6 +44,7 @@
                             <th class="text-left">Status</th>
                             <th class="text-left">Petugas</th>
                             <th class="text-left">Aksi</th>
+                            <th class="text-left">Bukti Pembagian</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -66,7 +67,8 @@
                                     <v-btn x-small color="success" dark v-if="item.status == 0 && (user.id_role == 34 || user.id_role == 23)" @click="openDialog(item.id,0)">Konfirmasi</v-btn>
                                     <v-btn x-small color="success" dark v-if="item.status == 1 && (user.id_role == 37 || user.id_role == 23)" @click="openDialog(item.id,2)">Cairkan</v-btn>
                                     <v-btn x-small color="success" dark v-if="item.status == 2 && (user.id_role == 35 || user.id_role == 23)" @click="openDialog(item.id,3)">Antar</v-btn>
-                                    <v-btn x-small color="success" dark v-if="item.status == 3 && (user.id_role == 36 || user.id_role == 23)"@click="openDialog(item.id,4)">Terima</v-btn>
+                                    <v-btn x-small color="success" dark v-if="item.status == 3 && (user.id_role == 36 || user.id_role == 23)" @click="openDialog(item.id,4)">Terima</v-btn>
+                                    <v-btn x-small color="success" dark v-if="(item.status == 4 && !item.file_bukti) && (user.id_role == 36 || user.id_role == 23)" @click="openDialog(item.id,7)">Upload Bukti</v-btn>
                                     <v-btn color="success" v-on:click="edit(item.id)" fab x-small dark v-if="item.status == 0  && (user.id_role == 35 || user.id_role == 23)">
                                         <v-icon>mdi-circle-edit-outline</v-icon>
                                     </v-btn>
@@ -74,6 +76,16 @@
                                         <v-icon>mdi-delete-outline</v-icon>
                                     </v-btn>
                                 </td>
+
+                                <td class="text-left">
+                                    <v-img v-if="item.file_bukti"
+                                    :src="item.file_bukti"
+                                    height="125"
+                                    width="100"
+                                    @click="dokumentUrl(item.file_bukti)"
+                                    ></v-img>
+                                </td>
+
                             </tr>
 
                         </tbody>
@@ -241,6 +253,38 @@
                 </v-card-actions>
             </v-card>
             </v-dialog>
+
+             <v-dialog
+            v-model="dialog_konfirm"
+            max-width="450"
+            >
+            <v-card>
+                <v-card-title class="headline">Upload Bukti Pembagian Zakat</v-card-title>
+
+                <v-card-actions>
+                <v-spacer></v-spacer>
+                <input type="file" @change="eventChange" accept="image/*">
+                 <v-btn
+                    color="red"
+                    text
+                    @click="dialog_konfirm = false"
+
+                >
+                    Cancel
+                </v-btn>
+
+
+                <v-btn
+                    color="success"
+                    text
+                    @click="confirmasi(status=7,id=null)"
+                >
+
+                    Upload
+                </v-btn>
+                </v-card-actions>
+            </v-card>
+            </v-dialog>
         </v-container>
     </v-app>
 
@@ -254,7 +298,8 @@ export default {
         return {
             dialog_konfirm:false,
             id_penyalur:'',
-            status:0
+            status:0,
+            foto:''
         }
     },
     mixins:[crud_dana],
@@ -284,6 +329,7 @@ export default {
             let url = this.$route.path + '/' + id_penyalur
              let data = new FormData()
             data.append('status', status ? status : this.status)
+            data.append('foto',this.foto)
 
             data.append('_method','PUT')
 
@@ -315,7 +361,12 @@ export default {
                 console.log(err.response)
             })
             this.dialog_konfirm = false
-        }
+        },
+
+        eventChange(event){
+            const files = event.target.files
+            this.foto = files[0]
+        },
     }
 }
 </script>

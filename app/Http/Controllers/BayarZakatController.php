@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\Pembayaran\Pembayaran as PembayaranPembayaran;
 use App\Http\Resources\Pembayaran\PembayaranCollection;
+use App\Mail\SendCode;
 use App\Models\Pembayaran;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class BayarZakatController extends Controller
 {
@@ -71,7 +73,9 @@ class BayarZakatController extends Controller
             $data->id_approval = \Auth::user()->id;
             $data->status = 1;
         }
-        $data->save();
+        if($data->save()){
+            Mail::to($data->email)->send(new SendCode($data));
+        }
         return response()->json([
             'message' => 'Berhasil Tambah Data',
             'data' => new PembayaranPembayaran($data)

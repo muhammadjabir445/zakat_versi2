@@ -91,7 +91,7 @@ class PenyalurController extends Controller
      */
     public function edit($id)
     {
-        $penyalur = Penyalur::findOrFail($id);
+        $penyalur = Penyalur::with('mustahik')->findOrFail($id);
         return $penyalur;
     }
 
