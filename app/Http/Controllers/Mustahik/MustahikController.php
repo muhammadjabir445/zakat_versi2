@@ -13,16 +13,26 @@ class MustahikController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function getMustahik(Request $request){
+        $id_penyalur = $request->id_penyalur;
+        $mustahik = Mustahik::where('id_penyalur',$id_penyalur)->get();
+        return $mustahik;
+    }
     public function index(Request $request)
     {
         if ($request) {
-            $user = \Auth::user()->penyalur->mustahik(function($q) use ($request) {
-                $q->where('nama','LIKE',"%{$request->keyword}%")
-                ->orWhere('alamat','LIKE',"%{$request->keyword}%");
-            })
+            if (\Auth::user()->id_role == 23) {
+                $user = Mustahik::orderBy('created_at','desc')->paginate(15);
+            } else {
+                $user = \Auth::user()->penyalur->mustahik(function($q) use ($request) {
+                    $q->where('nama','LIKE',"%{$request->keyword}%")
+                    ->orWhere('alamat','LIKE',"%{$request->keyword}%");
+                })
 
-                    ->orderBy('created_at','desc')
-                    ->paginate(15);
+                        ->orderBy('created_at','desc')
+                        ->paginate(15);
+            }
+
         }else{
             $user =  \Auth::user()->penyalur()->mustahik()->paginate(15);
         }

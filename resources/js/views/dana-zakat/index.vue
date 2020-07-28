@@ -68,7 +68,7 @@
                                     <v-btn x-small color="success" dark v-if="item.status == 1 && (user.id_role == 37 || user.id_role == 23)" @click="openDialog(item.id,2)">Cairkan</v-btn>
                                     <v-btn x-small color="success" dark v-if="item.status == 2 && (user.id_role == 35 || user.id_role == 23)" @click="openDialog(item.id,3)">Antar</v-btn>
                                     <v-btn x-small color="success" dark v-if="item.status == 3 && (user.id_role == 36 || user.id_role == 23)" @click="openDialog(item.id,4)">Terima</v-btn>
-                                    <v-btn x-small color="success" dark v-if="(item.status == 4 && !item.file_bukti) && (user.id_role == 36 || user.id_role == 23)" @click="openDialog(item.id,7)">Upload Bukti</v-btn>
+                                    <v-btn x-small color="success" dark v-if="(item.status == 4 && !item.file_bukti) && (user.id_role == 36 || user.id_role == 23)" @click="DialogUpload(item.id,7)">Upload Bukti</v-btn>
                                     <v-btn color="success" v-on:click="edit(item.id)" fab x-small dark v-if="item.status == 0  && (user.id_role == 35 || user.id_role == 23)">
                                         <v-icon>mdi-circle-edit-outline</v-icon>
                                     </v-btn>
@@ -255,7 +255,7 @@
             </v-dialog>
 
              <v-dialog
-            v-model="dialog_konfirm"
+            v-model="dialog_upload"
             max-width="450"
             >
             <v-card>
@@ -267,7 +267,7 @@
                  <v-btn
                     color="red"
                     text
-                    @click="dialog_konfirm = false"
+                    @click="dialog_upload = false"
 
                 >
                     Cancel
@@ -299,7 +299,8 @@ export default {
             dialog_konfirm:false,
             id_penyalur:'',
             status:0,
-            foto:''
+            foto:'',
+            dialog_upload:false
         }
     },
     mixins:[crud_dana],
@@ -321,6 +322,14 @@ export default {
     methods: {
         openDialog(id,status) {
             this.dialog_konfirm = !this.dialog_konfirm
+            this.id_penyalur = id
+            this.status = status
+        },
+
+
+
+        DialogUpload(id,status) {
+            this.dialog_upload = !this.dialog_upload
             this.id_penyalur = id
             this.status = status
         },
@@ -361,6 +370,7 @@ export default {
                 console.log(err.response)
             })
             this.dialog_konfirm = false
+            this.dialog_upload=false
         },
 
         eventChange(event){

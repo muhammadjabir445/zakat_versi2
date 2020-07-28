@@ -97,6 +97,7 @@
                             item-value="id"
                             required
                             v-if="jenis_pengajuan == 'Pembagian zakat'"
+                            @change="getMustahik()"
                             ></v-select>
 
                             <v-text-field
@@ -151,6 +152,40 @@
 
                 </v-card-actions>
             </v-card>
+
+            <br>
+
+            <v-card
+            class="border-edit"
+            tile
+            v-if="jenis_pengajuan == 'Pembagian zakat' && mustahiks"
+            >
+            <v-btn small color="teal darken-2" class="white--text" tile>Data Mustahik</v-btn>
+                <v-card-text class="text-center">
+
+                    <v-simple-table>
+                        <template v-slot:default>
+                        <thead>
+                            <tr>
+                            <th class="text-left">No KTP</th>
+                            <th class="text-left">Nama Lengkap</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="item in mustahiks" :key="item.id">
+                                <td class="text-left">{{item.ktp}}</td>
+                                <td class="text-left">{{item.nama}}</td>
+                            </tr>
+
+                        </tbody>
+                        </template>
+                    </v-simple-table>
+                </v-card-text>
+                <v-card-actions class="">
+
+                </v-card-actions>
+            </v-card>
         </v-container>
     </v-app>
 
@@ -161,6 +196,11 @@ import danazakat from '../../mixins/danazakat'
 import middleware from '../../mixins/middleware'
 export default {
     name: 'masterdata.edit',
+    data() {
+        return {
+            mustahiks:[]
+        }
+    },
 
     mixins:[danazakat,middleware],
     methods:{
@@ -199,6 +239,17 @@ export default {
             this.loading = false
 
         },
+        getMustahik(){
+            let url = '/mustahik/get-mustahik?id_penyalur=' +this.nama_yayasan
+            this.axios.get(url,this.config)
+            .then((ress)=>{
+                console.log(ress)
+                this.mustahiks = ress.data
+            })
+            .catch((err)=>{
+                console.log(err)
+            } )
+        }
 
     },
     created () {

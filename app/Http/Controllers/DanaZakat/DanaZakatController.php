@@ -32,7 +32,7 @@ class DanaZakatController extends Controller
                         if ($filter) {
                             $q->where('id_penyalur',$filter)
                             ->where(function($q) {
-                                $q->where('status',1)->orWhere('status',4);
+                                $q->where('status',1)->orWhere('status',4)->orWhere('status',3);
                             });
                         }
                     })
@@ -42,7 +42,7 @@ class DanaZakatController extends Controller
                         if ($filter) {
                             $q->where('id_penyalur',$filter)
                             ->where(function($q) {
-                                $q->where('status',1)->orWhere('status',4);
+                                $q->where('status',1)->orWhere('status',4)->orWhere('status',3);
                             });
                         }
                     })
@@ -54,7 +54,7 @@ class DanaZakatController extends Controller
                         if ($filter) {
                             $q->where('id_penyalur',$filter)
                             ->where(function($q) {
-                                $q->where('status',1)->orWhere('status',4);
+                                $q->where('status',1)->orWhere('status',4)->orWhere('status',3);
                             });
                         }
                     })
@@ -66,7 +66,7 @@ class DanaZakatController extends Controller
                         if ($filter) {
                             $q->where('id_penyalur',$filter)
                             ->where(function($q) {
-                                $q->where('status',1)->orWhere('status',4);
+                                $q->where('status',1)->orWhere('status',4)->orWhere('status',3);
                             });
                         }
                     })

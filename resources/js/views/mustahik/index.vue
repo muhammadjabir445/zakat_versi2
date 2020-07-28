@@ -51,23 +51,12 @@
                                 <v-btn color="success" v-on:click="edit(item.id)" fab x-small dark >
                                     <v-icon>mdi-circle-edit-outline</v-icon>
                                 </v-btn>
-                                <v-btn color="error" fab x-small @click="dialogDelete(item.id)" >
+                                <v-btn color="error" fab x-small @click="dialogDelete(item.id)" v-if="user.id_role == 23" >
                                     <v-icon>mdi-delete-outline</v-icon>
                                 </v-btn>
                                 </td>
                             </tr>
-                            <!-- <tr>
-                                <td class="text-left">Muhammad Jabir</td>
-                                <td class="text-left">Jl siantar</td>
-                                <td class="text-left">
-                                <v-btn color="success"  fab x-small dark >
-                                    <v-icon>mdi-circle-edit-outline</v-icon>
-                                </v-btn>
-                                <v-btn color="error" fab x-small  >
-                                    <v-icon>mdi-delete-outline</v-icon>
-                                </v-btn>
-                                </td> -->
-                            </tr>
+
                         </tbody>
                         </template>
                     </v-simple-table>

@@ -32,6 +32,8 @@ Route::get('/setting-aplikasi','SettingController@index');
 Route::post('/setting-aplikasi','SettingController@store');
 Route::post('/role-management','Role\RoleManagementController@store');
 Route::get('/role-management/{id}/edit','Role\RoleManagementController@edit');
+Route::get('/mustahik/get-mustahik', 'Mustahik\MustahikController@getMustahik');
+
 Route::resource('masterdata', 'Masterdata\MasterdataController');
 Route::resource('menu', 'Menu\MenuController');
 Route::resource('users', 'Users\UsersController');
