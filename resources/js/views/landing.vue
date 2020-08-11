@@ -29,11 +29,15 @@
                 tile
                 >
                 <v-btn small color="teal darken-2" class="white--text" tile>Profil BMT At-Taqwa</v-btn>
-                    <v-card-text class="text-center">
+                    <v-card-text class="text-left">
                     <p>Baitul Maal Watamwil AT-TAQWA berdiri sejak tahun 1994, lahir sebagai solusi dari pembagian dana zakat,
                          untuk memperdayakan masyarakat khususnya di sekitar masjid At-Taqwa dan sekitarnya. Dalam bentuk ZIS dan wakaf untuk dikelola
                          secara produktif dan disalurkan dalam bentuk pembiayaan Al-Qard, serta dana simpanan dari anggota yang dikelola secara profitable untuk disalurkan kepada
-                         usaha mikro kecil dalam bentuk pembiayaan dalam bentuk pembiayaan dengan skema sistem bagi hasil dan jual beli.</p>
+                         usaha mikro kecil dalam bentuk pembiayaan dalam bentuk pembiayaan dengan skema sistem bagi hasil dan jual beli.
+
+                         <br>
+                         Konsultasi : (021) 5359435
+                         </p>
                     </v-card-text>
 
                     <v-card-actions class="">
@@ -46,7 +50,7 @@
                 tile
                 >
                 <v-btn small color="teal darken-2" class="white--text" tile>Visi BMT At-Taqwa</v-btn>
-                    <v-card-text class="text-center">
+                    <v-card-text class="text-left">
                     <p>“Menjadi lembaga keuangan Islam yang ikut menunjang dan memajukan perekonomian umat, sehingga menjadikan lembaga yang dapat dipercaya masyarakat dan tumbuh sebagai lembaga yang menjawab tantanganperekonomian nasional khususnya ekonomi mikro dalam mengentaskan kemiskinan.”</p>
                     </v-card-text>
 
@@ -60,7 +64,7 @@
                 tile
                 >
                 <v-btn small color="teal darken-2" class="white--text" tile>Misi BMT At-Taqwa</v-btn>
-                    <v-card-text class="text-center">
+                    <v-card-text class="text-left">
                     <p>“Menjadikan BMT At-Taqwa sebagai koperasi jasa keuangan syariah yang dapat bersaing dalam hal kesehatan. Profitable efisien dan sebagai pilar ekonomi yaitu sebagai bagian dari syiar islam dalam bidang ekonomi.” </p>
                     </v-card-text>
 

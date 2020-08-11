@@ -4,16 +4,16 @@
         <v-row>
             <v-col
             cols="12"
-            md="3"
+            md="4"
             >
                 <v-card
                 class="border-edit"
                 tile
 
                 >
-                <v-btn small color="teal darken-2" class="white--text" tile>Total Uang</v-btn>
+                <v-btn small color="teal darken-2" class="white--text" tile>Sisa Uang Tersedia</v-btn>
                     <v-card-text class="text-center">
-                    <h3>Rp.300.000.000</h3>
+                        <h3>Rp. {{total_uang_sisa}}</h3>
                     </v-card-text>
 
                     <v-card-actions class="">
@@ -24,16 +24,17 @@
 
             <v-col
             cols="12"
-            md="3"
+            md="4"
             >
                 <v-card
                 class="border-edit"
                 tile
 
                 >
-                <v-btn small color="teal darken-2" class="white--text" tile>Total Beras</v-btn>
+                <v-btn small color="teal darken-2" class="white--text" tile>Total Sisa Beras</v-btn>
                     <v-card-text class="text-center">
-                    <h3>340Kg</h3>
+
+                     <h3>{{total_beras_sisa}}</h3>
                     </v-card-text>
 
                     <v-card-actions class="">
@@ -44,16 +45,16 @@
 
             <v-col
             cols="12"
-            md="3"
+            md="4"
             >
                 <v-card
                 class="border-edit"
                 tile
 
                 >
-                <v-btn small color="teal darken-2" class="white--text" tile>Penyalur Zakat</v-btn>
+                <v-btn small color="teal darken-2" class="white--text" tile>Total Sisa uang beras</v-btn>
                     <v-card-text class="text-center">
-                    <h3>12 Lembaga</h3>
+                    <h3>Rp. {{total_uang_beras}}</h3>
                     </v-card-text>
 
                     <v-card-actions class="">
@@ -62,25 +63,7 @@
             </v-card>
             </v-col>
 
-            <v-col
-            cols="12"
-            md="3"
-            >
-                <v-card
-                class="border-edit"
-                tile
 
-                >
-                <v-btn small color="teal darken-2" class="white--text" tile>Total Mustahik</v-btn>
-                    <v-card-text class="text-center">
-                    <h3>600 Orang</h3>
-                    </v-card-text>
-
-                    <v-card-actions class="">
-
-                    </v-card-actions>
-            </v-card>
-            </v-col>
         </v-row>
 
          <v-card
@@ -101,3 +84,45 @@
 
     </div>
 </template>
+<script>
+import {mapActions} from 'vuex'
+import middleware from '../mixins/middleware'
+export default {
+    data: () => ({
+        valid: true,
+        lazy:false,
+        loading:false,
+        jenis_pengajuan:'',
+        total_uang_sisa : 0,
+        total_uang_beras : 0,
+        total_beras_sisa : 0,
+
+      }),
+    methods: {
+        ...mapActions({
+            setSnakbar: 'snakbar/setSnakbar'
+        }),
+
+        getRole(){
+            this.axios.get('/dana-zakat/create',this.config)
+            .then((ress) => {
+                console.log(ress)
+                this.lembaga = ress.data.penyalur
+                this.total_uang_sisa = ress.data.uang_tersedia
+                this.total_uang_beras = ress.data.uang_beras_tersedia
+                this.total_beras_sisa = ress.data.sisa_beras
+
+            })
+            .catch((err) => console.log(err))
+        }
+
+    },
+
+    mixins:[middleware],
+
+    created(){
+        this.getRole()
+    }
+}
+
+</script>

@@ -32,7 +32,7 @@
                 <th>Nama Lembaga</th>
                 <th>Jumlah uang</th>
                 <th>Jumlah Beras</th>
-                <th>Total Mustahik</th>
+
                 <th>Tanggal</th>
             </tr>
         </thead>
@@ -50,7 +50,7 @@
                 <td>{{$item->penyalur->nama}}</td>
                 <td>Rp {{$item->total_uang}}</td>
                 <td>{{$item->total_beras}}/Kg </td>
-                <td>{{count($item->penyalur->mustahik)}}</td>
+
                 <td>{{$item->created_at->format('d-m-Y')}}</td>
             </tr>
             @endforeach
