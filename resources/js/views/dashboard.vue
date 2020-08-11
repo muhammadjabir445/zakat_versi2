@@ -13,7 +13,7 @@
                 >
                 <v-btn small color="teal darken-2" class="white--text" tile>Sisa Uang Tersedia</v-btn>
                     <v-card-text class="text-center">
-                        <h3>Rp. {{total_uang_sisa}}</h3>
+                        <h3>Rp. {{total_uang_sisa | numberFormat}}</h3>
                     </v-card-text>
 
                     <v-card-actions class="">
@@ -54,7 +54,7 @@
                 >
                 <v-btn small color="teal darken-2" class="white--text" tile>Total Sisa uang beras</v-btn>
                     <v-card-text class="text-center">
-                    <h3>Rp. {{total_uang_beras}}</h3>
+                    <h3>Rp. {{total_uang_beras |numberFormat}}</h3>
                     </v-card-text>
 
                     <v-card-actions class="">
@@ -116,6 +116,13 @@ export default {
             .catch((err) => console.log(err))
         }
 
+    },
+
+    filters:{
+        numberFormat(value){
+                 let val = (value/1).toFixed(2).replace('.', ',')
+                return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+        }
     },
 
     mixins:[middleware],

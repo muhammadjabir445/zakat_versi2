@@ -51,7 +51,7 @@
                             <tr v-for="item in data" :key="item.id">
                                 <td class="text-left">{{item.penyalur.nama}}</td>
                                 <td class="text-left">{{item.penyalur.alamat}}</td>
-                                <td class="text-left">Rp {{item.total_uang}}</td>
+                                <td class="text-left">Rp {{item.total_uang | numberFormat}}</td>
                                 <td class="text-left">{{item.total_beras}} Kg</td>
                                 <td class="text-left">{{item.deskripsi}}</td>
                                 <td class="text-left">
@@ -152,7 +152,7 @@
                         </thead>
                         <tbody>
                             <tr v-for="item in datadua" :key="item.id">
-                                <td class="text-left">Rp {{item.total_uang}}</td>
+                                <td class="text-left">Rp {{item.total_uang | numberFormat}}</td>
                                 <td class="text-left">{{item.total_beras}} Kg</td>
                                 <td class="text-left">{{item.deskripsi}}</td>
                                 <td class="text-left">
@@ -377,7 +377,16 @@ export default {
             const files = event.target.files
             this.foto = files[0]
         },
+
+    },
+
+    filters:{
+        numberFormat(value){
+                 let val = (value/1).toFixed(2).replace('.', ',')
+                return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+        }
     }
+
 }
 </script>
 

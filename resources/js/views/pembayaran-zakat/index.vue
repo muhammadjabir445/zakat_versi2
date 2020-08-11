@@ -54,7 +54,11 @@
                                 <td class="text-left">{{item.nama}}</td>
                                 <td class="text-left">{{item.email}}</td>
                                 <td class="text-left">{{item.nohp}}</td>
-                                <td class="text-left">{{item.total_pembayaran > 1000 ? 'Rp.' + item.total_pembayaran : item.total_pembayaran +' Kg Beras'}}</td>
+                                <td class="text-left">
+                                    {{item.total_pembayaran > 1000 ? 'Rp.':''}}
+                                    {{item.total_pembayaran | numberFormat}}
+                                    {{item.total_pembayaran > 1000 ? '':' Kg Beras'}}
+                                </td>
                                 <td class="text-left">{{item.jenis_zakat}}</td>
                                 <td class="text-left"><v-btn x-small color="primary" dark v-on:click="dokumentUrl(item.foto)" v-if="item.foto">Dokumen</v-btn>
                                 {{item.foto ? '' : 'Pembayaran Offline'}}
@@ -209,7 +213,13 @@ export default {
             })
             this.dialog_konfirm = false
         }
-    }
+    },
+      filters:{
+        numberFormat(value){
+                 let val = (value/1).toFixed(2).replace('.', ',')
+                return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+        }
+    },
 }
 </script>
 
