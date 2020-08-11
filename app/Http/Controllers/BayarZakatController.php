@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\Pembayaran\Pembayaran as PembayaranPembayaran;
 use App\Http\Resources\Pembayaran\PembayaranCollection;
+use App\Jobs\SendMails;
 use App\Mail\SendCode;
 use App\Models\Pembayaran;
 use Illuminate\Http\Request;
@@ -76,6 +77,7 @@ class BayarZakatController extends Controller
         // $data->save();
         if($data->save()){
             // Mail::to($data->email)->send(new SendCode($data));
+            SendMails::dispatch($data);
         }
         return response()->json([
             'message' => 'Berhasil Tambah Data',
