@@ -73,8 +73,9 @@ class BayarZakatController extends Controller
             $data->id_approval = \Auth::user()->id;
             $data->status = 1;
         }
+        // $data->save();
         if($data->save()){
-            Mail::to($data->email)->send(new SendCode($data));
+            // Mail::to($data->email)->send(new SendCode($data));
         }
         return response()->json([
             'message' => 'Berhasil Tambah Data',

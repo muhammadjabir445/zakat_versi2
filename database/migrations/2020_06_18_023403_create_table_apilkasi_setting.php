@@ -17,6 +17,7 @@ class CreateTableApilkasiSetting extends Migration
             $table->id();
             $table->float('harga_beras',8,2);
             $table->float('harga_emas',8,2);
+            $table->float('harga_perak',8,2);
             $table->timestamps();
         });
     }
