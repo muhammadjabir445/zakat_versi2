@@ -34,7 +34,7 @@
                 <v-btn small color="teal darken-2" class="white--text" tile>Total Sisa Beras</v-btn>
                     <v-card-text class="text-center">
 
-                     <h3>{{total_beras_sisa}}</h3>
+                     <h3>{{total_beras_sisa}} Kg</h3>
                     </v-card-text>
 
                     <v-card-actions class="">

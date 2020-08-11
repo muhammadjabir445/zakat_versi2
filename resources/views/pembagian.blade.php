@@ -48,7 +48,7 @@
 
                 @endphp
                 <td>{{$item->penyalur->nama}}</td>
-                <td>Rp {{$item->total_uang}}</td>
+                <td>Rp {{number_format($item->total_uang,2)}}</td>
                 <td>{{$item->total_beras}}/Kg </td>
 
                 <td>{{$item->created_at->format('d-m-Y')}}</td>
@@ -68,7 +68,7 @@
         <thead>
             <tr>
                 <th colspan="4" style="text-align: center">Total Uang Keluar</th>
-                <th colspan="2">Rp {{$uang }} </th>
+                <th colspan="2">Rp {{ number_format($uang,2) }} </th>
             </tr>
 
 

@@ -52,7 +52,7 @@
                 <td>{{$item->email}}</td>
                 <td>{{$item->nohp}}</td>
                 <td>{{$item->jenis->description}}</td>
-                <td>{{$item->total_pembayaran > 1000 ? 'Rp' .$item->total_pembayaran : $item->total_pembayaran .'/Kg Beras' }}</td>
+                <td>{{$item->total_pembayaran > 1000 ? 'Rp' .number_format($item->total_pembayaran,2) : $item->total_pembayaran .'/Kg Beras' }}</td>
                 <td>{{$item->created_at->format('d-m-Y')}}</td>
             </tr>
             @endforeach
@@ -80,7 +80,7 @@
             @foreach ($pembelian as $item)
             <tr>
 
-                <td>Rp {{$item->total_uang}}</td>
+                <td>Rp {{number_format($item->total_uang,2)}}</td>
                 <td>{{$item->total_beras}}/Kg </td>
                 <td>{{$item->created_at->format('d-m-Y')}}</td>
             </tr>
@@ -95,7 +95,7 @@
         <thead>
             <tr>
                 <th colspan="4" style="text-align: center">Total Uang Masuk</th>
-                <th colspan="2">Rp {{$uang}}</th>
+                <th colspan="2">Rp {{number_format($uang,2)}}</th>
             </tr>
 
 
@@ -113,7 +113,7 @@
         <thead>
             <tr>
                 <th colspan="4" style="text-align: center">Total Uang</th>
-                <th colspan="2">Rp {{$uang - $pembelian->sum('total_uang')}}</th>
+                <th colspan="2">Rp {{number_format($uang - $pembelian->sum('total_uang'),2)}}</th>
             </tr>
 
 
