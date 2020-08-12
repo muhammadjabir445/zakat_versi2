@@ -229,10 +229,10 @@ export default {
 
                   }
               } else if(this.jenis_zakat == 41) {
-                  this.total = (modal + keuntungan + piutang) - (hutang + kerugian)
+                  this.total = (this.modal + this.keuntungan + this.piutang) - (this.hutang + this.kerugian)
                   this.hitung_emas()
               } else if(this.jenis_zakat == 42) {
-                  this.total = (penghasilan - kebutuhan) * 12
+                  this.total = (this.penghasilan - this.kebutuhan) * 12
                  this.hitung_emas()
               } else if (this.jenis_zakat == 43) {
                   this.total = this.tabungan
