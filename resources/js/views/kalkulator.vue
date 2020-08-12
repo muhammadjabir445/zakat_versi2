@@ -200,13 +200,13 @@ export default {
         jenis_zakat:'',
         orang:'',
         emas_perak:'',
-        modal:'',
-        keuntungan:'',
-        piutang:'',
-        hutang:'',
-        kerugian:'',
-        penghasilan:'',
-        kebutuhan:'',
+        modal:0,
+        keuntungan:0,
+        piutang:0,
+        hutang:0,
+        kerugian:0,
+        penghasilan:0,
+        kebutuhan:0,
         tabungan:'',
         hasil_panen:'',
         perairan:'Buatan',
@@ -229,7 +229,9 @@ export default {
 
                   }
               } else if(this.jenis_zakat == 41) {
-                  this.total = (this.modal + this.keuntungan + this.piutang) - (this.hutang + this.kerugian)
+                  this.total = parseInt(this.modal) + parseInt(this.keuntungan)   + parseInt(this.piutang)
+                  this.total = parseInt(this.total)  - parseInt(this.hutang)
+                  this.total =  parseInt(this.total)  - parseInt(this.kerugian)
                   this.hitung_emas()
               } else if(this.jenis_zakat == 42) {
                   this.total = (this.penghasilan - this.kebutuhan) * 12
@@ -247,6 +249,7 @@ export default {
           hitung_emas(){
                if (this.total >= this.nisob_emas) {
                           this.total = this.total * (2.5/100)
+                          console.log(this.total)
                       } else {
                           this.total = 'blm'
                 }
